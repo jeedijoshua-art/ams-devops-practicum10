@@ -1,0 +1,21 @@
+
+# Use official Python image
+FROM python:3.12-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy dependencies
+COPY requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy AMS application
+COPY attendance.py .
+
+# Copy automated tests
+COPY tests ./tests
+
+# Run automated tests inside container
+CMD ["python", "-m", "pytest", "-v"]
